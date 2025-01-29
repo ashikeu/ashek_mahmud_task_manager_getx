@@ -42,10 +42,10 @@ class HomeView extends GetView<HomeController> {
                   const SizedBox(width: 8),
                   Expanded(
                     child: GestureDetector(
-                      onTap: () {
-                        // if (!fromUpdateProfile) {
-                        //   Navigator.pushNamed(context, UpdateProfileScreen.name);
-                        // }
+                      onTap: () {                        
+                          // Navigator.pushNamed(context, UpdateProfileScreen.name);
+                          Get.toNamed(Routes.UPDATE_PROFILE_SCREEN);
+                        
                       },
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

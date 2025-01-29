@@ -11,9 +11,13 @@ abstract class Routes {
   static const SIGN_IN_SCREEN = _Paths.SIGN_IN_SCREEN;
   static const SIGN_UP_SCREEN = _Paths.SIGN_UP_SCREEN;
   static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
-  static const FORGET_PASSWORD_VERIFY_EMAIL_SCREEN =_Paths.FORGET_PASSWORD_VERIFY_EMAIL_SCREEN;
-  static const FORGET_PASSWORD_VERIFY_OTP_SCREEN =_Paths.FORGET_PASSWORD_VERIFY_OTP_SCREEN;
+  static const FORGET_PASSWORD_VERIFY_EMAIL_SCREEN =
+      _Paths.FORGET_PASSWORD_VERIFY_EMAIL_SCREEN;
+  static const FORGET_PASSWORD_VERIFY_OTP_SCREEN =
+      _Paths.FORGET_PASSWORD_VERIFY_OTP_SCREEN;
   static const RESET_PASSWORD_SCREEN = _Paths.RESET_PASSWORD_SCREEN;
+  static const ADD_NEW_TASK_SCREEN = _Paths.ADD_NEW_TASK_SCREEN;
+  static const UPDATE_PROFILE_SCREEN = _Paths.UPDATE_PROFILE_SCREEN;
 }
 
 abstract class _Paths {
@@ -31,4 +35,6 @@ abstract class _Paths {
   static const FORGET_PASSWORD_VERIFY_OTP_SCREEN =
       '/forget-password-verify-otp-screen';
   static const RESET_PASSWORD_SCREEN = '/reset-password-screen';
+  static const ADD_NEW_TASK_SCREEN = '/add-new-task-screen';
+  static const UPDATE_PROFILE_SCREEN = '/update-profile-screen';
 }

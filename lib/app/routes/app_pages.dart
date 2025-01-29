@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/add_new_task_screen/bindings/add_new_task_screen_binding.dart';
+import '../modules/add_new_task_screen/views/add_new_task_screen_view.dart';
 import '../modules/canceled_task_list/bindings/canceled_task_list_binding.dart';
 import '../modules/canceled_task_list/views/canceled_task_list_view.dart';
 import '../modules/completed_task_list/bindings/completed_task_list_binding.dart';
@@ -22,6 +24,8 @@ import '../modules/sign_up_screen/bindings/sign_up_screen_binding.dart';
 import '../modules/sign_up_screen/views/sign_up_screen_view.dart';
 import '../modules/splash_screen/bindings/splash_screen_binding.dart';
 import '../modules/splash_screen/views/splash_screen_view.dart';
+import '../modules/update_profile_screen/bindings/update_profile_screen_binding.dart';
+import '../modules/update_profile_screen/views/update_profile_screen_view.dart';
 
 part 'app_routes.dart';
 
@@ -38,12 +42,12 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.NEW_TASK_LIST,
-      page: () => const NewTaskListView(),
+      page: () => NewTaskListView(),
       binding: NewTaskListBinding(),
     ),
     GetPage(
       name: _Paths.PROGRESS_TASK_LIST,
-      page: () => const ProgressTaskListView(),
+      page: () => ProgressTaskListView(),
       binding: ProgressTaskListBinding(),
     ),
     GetPage(
@@ -58,7 +62,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.SIGN_IN_SCREEN,
-      page: () =>  SignInScreenView(),
+      page: () => SignInScreenView(),
       binding: SignInScreenBinding(),
     ),
     GetPage(
@@ -85,6 +89,16 @@ class AppPages {
       name: _Paths.RESET_PASSWORD_SCREEN,
       page: () => const ResetPasswordScreenView(),
       binding: ResetPasswordScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_NEW_TASK_SCREEN,
+      page: () => const AddNewTaskScreenView(),
+      binding: AddNewTaskScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.UPDATE_PROFILE_SCREEN,
+      page: () => const UpdateProfileScreenView(),
+      binding: UpdateProfileScreenBinding(),
     ),
   ];
 }

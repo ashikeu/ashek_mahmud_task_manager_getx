@@ -13,6 +13,7 @@ class SignInScreenView extends GetView<SignInScreenController> {
   // final TextEditingController _passwordTEController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   // bool _signInProgress = false;
+  @override
   final SignInScreenController controller=Get.put(SignInScreenController());
 
   @override
@@ -57,10 +58,13 @@ class SignInScreenView extends GetView<SignInScreenController> {
                   ),
                   const SizedBox(height: 24),
                   Visibility(
-                    visible: controller.isLoading == false,
+                    visible: controller.isLoading.value == false,
                     replacement: const CenteredCircularProgressIndicator(),
                     child: ElevatedButton(
                       onPressed: _onTapSignInButton,
+                      style: ElevatedButton.styleFrom(
+        minimumSize: Size(double.infinity,30), // Full width, custom height
+      ),
                       child: const Icon(Icons.arrow_circle_right_outlined),
                     ),
                   ),
@@ -107,7 +111,7 @@ class SignInScreenView extends GetView<SignInScreenController> {
             ),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                Get.to(Routes.SIGN_UP_SCREEN);
+                Get.toNamed(Routes.SIGN_UP_SCREEN);
               },
           )
         ],
