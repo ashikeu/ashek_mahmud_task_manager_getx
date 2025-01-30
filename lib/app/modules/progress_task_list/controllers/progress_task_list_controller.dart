@@ -20,7 +20,7 @@ class ProgressTaskListController extends GetxController {
     if (response.isSuccess) {
       newTaskListModel.value = TaskListByStatusModel.fromJson(response.responseData!);
     } else {
-      Get.snackbar("Msg", response.errorMessage);
+      Get.snackbar("Error", response.errorMessage);
     }
    isLoading.value = false;
   }

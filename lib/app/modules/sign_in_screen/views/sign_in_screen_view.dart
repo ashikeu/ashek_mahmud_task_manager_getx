@@ -61,10 +61,7 @@ class SignInScreenView extends GetView<SignInScreenController> {
                     visible: controller.isLoading.value == false,
                     replacement: const CenteredCircularProgressIndicator(),
                     child: ElevatedButton(
-                      onPressed: _onTapSignInButton,
-                      style: ElevatedButton.styleFrom(
-        minimumSize: Size(double.infinity,30), // Full width, custom height
-      ),
+                      onPressed: _onTapSignInButton,                     
                       child: const Icon(Icons.arrow_circle_right_outlined),
                     ),
                   ),
@@ -74,7 +71,7 @@ class SignInScreenView extends GetView<SignInScreenController> {
                       children: [
                         TextButton(
                           onPressed: () {
-                            Get.to(Routes.FORGET_PASSWORD_VERIFY_EMAIL_SCREEN);
+                            Get.toNamed(Routes.FORGET_PASSWORD_VERIFY_EMAIL_SCREEN);
                           },
                           child: const Text('Forgot Password?'),
                         ),

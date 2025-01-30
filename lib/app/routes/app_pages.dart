@@ -67,7 +67,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.SIGN_UP_SCREEN,
-      page: () => const SignUpScreenView(),
+      page: () => SignUpScreenView(),
       binding: SignUpScreenBinding(),
     ),
     GetPage(
@@ -77,17 +77,17 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.FORGET_PASSWORD_VERIFY_EMAIL_SCREEN,
-      page: () => const ForgetPasswordVerifyEmailScreenView(),
+      page: () =>  ForgetPasswordVerifyEmailScreenView(),
       binding: ForgetPasswordVerifyEmailScreenBinding(),
     ),
     GetPage(
       name: _Paths.FORGET_PASSWORD_VERIFY_OTP_SCREEN,
-      page: () => const ForgetPasswordVerifyOtpScreenView(),
+      page: () => ForgetPasswordVerifyOtpScreenView(),
       binding: ForgetPasswordVerifyOtpScreenBinding(),
     ),
     GetPage(
       name: _Paths.RESET_PASSWORD_SCREEN,
-      page: () => const ResetPasswordScreenView(),
+      page: () =>  ResetPasswordScreenView(),
       binding: ResetPasswordScreenBinding(),
     ),
     GetPage(
@@ -97,7 +97,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.UPDATE_PROFILE_SCREEN,
-      page: () => const UpdateProfileScreenView(),
+      page: () => UpdateProfileScreenView(),
       binding: UpdateProfileScreenBinding(),
     ),
   ];

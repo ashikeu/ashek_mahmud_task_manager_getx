@@ -1,3 +1,4 @@
+import 'package:ashek_task_manager_getx/app/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -13,6 +14,7 @@ void main() async{
       debugShowCheckedModeBanner: false,
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
+      theme: AppTheme.lightTheme,
     ),
   );
 }
