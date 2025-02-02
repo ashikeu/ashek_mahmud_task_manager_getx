@@ -1,20 +1,26 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:ashek_task_manager_getx/app/modules/sign_in_screen/controllers/auth_controller.dart';
 import 'package:ashek_task_manager_getx/app/services/network_caller.dart';
 import 'package:ashek_task_manager_getx/app/utils/urls.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UpdateProfileScreenController extends GetxController {
-
   final TextEditingController emailTEController = TextEditingController();
   final TextEditingController firstNameTEController = TextEditingController();
   final TextEditingController lastNameTEController = TextEditingController();
   final TextEditingController mobileTEController = TextEditingController();
   final TextEditingController passwordTEController = TextEditingController();
-  late XFile? pickedImage;
-  var isLoading=false.obs;
+
+  var isLoading = false.obs;
+  RxString profileImageName = "".obs;
+  Rx<File> profileImageFile = File("").obs;
+  Rx<Uint8List> profileImage = Uint8List(0).obs;
+  RxString imageChooseText = "Choose Profile Image".obs;
 
   @override
   void onInit() {
@@ -25,8 +31,6 @@ class UpdateProfileScreenController extends GetxController {
     super.onInit();
   }
 
-   
-  
   Future<void> updateProfile() async {
     isLoading.value = true;
     Map<String, dynamic> requestBody = {
@@ -36,9 +40,8 @@ class UpdateProfileScreenController extends GetxController {
       "mobile": mobileTEController.text.trim(),
     };
 
-    if (pickedImage != null) {
-      List<int> imageBytes = await pickedImage!.readAsBytes();
-      requestBody['photo'] = base64Encode(imageBytes);
+    if (profileImage.value.isNotEmpty) {
+      requestBody['photo'] = profileImage.value;
     }
     if (passwordTEController.text.isNotEmpty) {
       requestBody['password'] = passwordTEController.text;
@@ -54,6 +57,29 @@ class UpdateProfileScreenController extends GetxController {
     }
   }
 
+  Future<void> pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      final imageFile = File(pickedFile.path);
+      final imageName = File(pickedFile.name);
+      final originalImageData = await imageFile.readAsBytes();
+
+      final compressedImageData = await FlutterImageCompress.compressWithList(
+        originalImageData,
+        minWidth: 50,
+        minHeight: 50,
+        quality: 50,
+      );
+      profileImageName.value = imageName.toString();
+      profileImageFile.value = imageFile;
+      profileImage.value = compressedImageData;
+
+      imageChooseText.value = "Change Cover Image";
+    }
+  }
+
   @override
   void onClose() {
     emailTEController.dispose();
@@ -63,5 +89,4 @@ class UpdateProfileScreenController extends GetxController {
     passwordTEController.dispose();
     super.onClose();
   }
-
 }

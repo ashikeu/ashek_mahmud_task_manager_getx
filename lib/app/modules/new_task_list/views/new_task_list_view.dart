@@ -52,6 +52,8 @@ class NewTaskListView extends StatelessWidget {
       itemBuilder: (context, index) {
         return TaskItemWidget(
           taskModel: controller.newTaskListModel.value.taskList[index],
+          taskModelList: controller.newTaskListModel.value.taskList,
+          index: index,
         );
       },
     );

@@ -52,12 +52,12 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.COMPLETED_TASK_LIST,
-      page: () => const CompletedTaskListView(),
+      page: () =>  CompletedTaskListView(),
       binding: CompletedTaskListBinding(),
     ),
     GetPage(
       name: _Paths.CANCELED_TASK_LIST,
-      page: () => const CanceledTaskListView(),
+      page: () =>  CanceledTaskListView(),
       binding: CanceledTaskListBinding(),
     ),
     GetPage(
@@ -92,7 +92,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ADD_NEW_TASK_SCREEN,
-      page: () => const AddNewTaskScreenView(),
+      page: () =>  AddNewTaskScreenView(),
       binding: AddNewTaskScreenBinding(),
     ),
     GetPage(

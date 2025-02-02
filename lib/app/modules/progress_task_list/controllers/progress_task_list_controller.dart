@@ -10,11 +10,11 @@ class ProgressTaskListController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _getNewTaskList();
+    _getTaskList();
   }
 
 
-  Future<void> _getNewTaskList() async {
+  Future<void> _getTaskList() async {
     isLoading.value = true;
     final NetworkResponse response =await NetworkCaller.getRequest(url: Urls.taskListByStatusUrl(enumTaskStatus.Progress.name));
     if (response.isSuccess) {

@@ -9,11 +9,12 @@ import 'package:image_picker/image_picker.dart';
 class UpdateProfileScreenView extends GetView<UpdateProfileScreenController> {
   UpdateProfileScreenView({super.key});
   
+  XFile? _pickedImage;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 @override
   final UpdateProfileScreenController controller=Get.put(UpdateProfileScreenController());
 
-
+ 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -103,7 +104,7 @@ class UpdateProfileScreenView extends GetView<UpdateProfileScreenController> {
 
   Widget _buildPhotoPicker() {
     return GestureDetector(
-      onTap: _pickImage,
+      onTap: controller.pickImage,
       child: Container(
         height: 50,
         decoration: BoxDecoration(
@@ -127,9 +128,11 @@ class UpdateProfileScreenView extends GetView<UpdateProfileScreenController> {
               ),
             ),
             const SizedBox(width: 12),
+            Obx(()=>
             Text(
-              controller.pickedImage == null ? 'No item selected' : controller.pickedImage!.name,
+              controller.profileImageName.value,
               maxLines: 1,
+            )
             )
           ],
         ),
@@ -137,16 +140,9 @@ class UpdateProfileScreenView extends GetView<UpdateProfileScreenController> {
     );
   }
 
-  Future<void> _pickImage() async {
-    ImagePicker picker = ImagePicker();
-    XFile? image = await picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      controller.pickedImage = image;
-    }
-  }
 
   void _onTapUpdateButton() async{
-    if (_formKey.currentState!.validate()) {
+    if (_formKey.currentState!.validate()) {      
       await controller.updateProfile();
       Get.toNamed(Routes.HOME);
     }

@@ -9,12 +9,10 @@ import '../controllers/sign_in_screen_controller.dart';
 
 class SignInScreenView extends GetView<SignInScreenController> {
   SignInScreenView({super.key});
-  // final TextEditingController _emailTEController = TextEditingController();
-  // final TextEditingController _passwordTEController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   // bool _signInProgress = false;
   @override
-  final SignInScreenController controller=Get.put(SignInScreenController());
+  final SignInScreenController controller=Get.find<SignInScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -90,9 +88,18 @@ class SignInScreenView extends GetView<SignInScreenController> {
   }
   void _onTapSignInButton() {
     if (_formKey.currentState!.validate()) {
-      controller.login();
+      _signIn();
     }
   } 
+
+   Future<void> _signIn() async {
+    final bool isSuccess = await controller.login();
+    if (isSuccess) {
+      Get.toNamed(Routes.HOME);
+    } else {
+      Get.snackbar("Error",controller.errorMessage!);
+    }
+  }
 
   Widget _buildSignUpSection() {
     return RichText(

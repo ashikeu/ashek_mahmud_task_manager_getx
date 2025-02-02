@@ -13,7 +13,9 @@ class SignInScreenController extends GetxController {
   final TextEditingController emailTEController = TextEditingController();
   final TextEditingController passwordTEController = TextEditingController();
   var isLoading = false.obs;
-  var errorMessage = ''.obs;
+   String? _errorMessage;
+
+  String? get errorMessage => _errorMessage;
 
   final count = 0.obs;
   @override
@@ -29,8 +31,9 @@ class SignInScreenController extends GetxController {
     super.onClose();
   }
 
-  Future<void> login() async {
-    isLoading.value = true;// Replace with your API URL
+  Future<bool> login() async {
+    isLoading.value = true;
+    bool isSuccess=false;
 
     try {
       Map<String, dynamic> requestBody = {
@@ -45,22 +48,20 @@ class SignInScreenController extends GetxController {
       UserModel userModel = UserModel.fromJson(response.responseData!['data']);
       await AuthController.saveUserData(token, userModel);
       isLoading.value=false;
-      Get.offAllNamed(Routes.HOME);
-      // Navigator.pushReplacementNamed(context, MainBottomNavScreen.name);
+      isSuccess=true;
+      _errorMessage=null;
     } else {
-      // _signInProgress = false;
-      // setState(() {});
       if (response.statusCode == 401) {
-        Get.snackbar('Error', 'Email/Password is invalid! Try again.');
+         _errorMessage='Email/Password is invalid! Try again.';
       } else {
-        Get.snackbar('Error', response.errorMessage);
+        _errorMessage=response.errorMessage;
       }
     }
-    } catch (e) {
-      // Handle any exceptions (e.g., no internet connection)
-      Get.snackbar('Error', e.toString());
+    } catch (e) {      
+      _errorMessage= e.toString();
     } finally {
       isLoading.value = false;
     }
+    return isSuccess;
   }
 }

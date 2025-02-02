@@ -40,4 +40,5 @@ class NewTaskListController extends GetxController {
     }
    isLoading.value = false;
   }
+
 }

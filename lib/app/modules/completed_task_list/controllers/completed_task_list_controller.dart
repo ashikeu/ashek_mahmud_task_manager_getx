@@ -6,21 +6,23 @@ import 'package:get/get.dart';
 
 class CompletedTaskListController extends GetxController {
    var isLoading = false.obs;
+   String? _errorMessage;
+   String? get errorMessage => _errorMessage;
   Rx<TaskListByStatusModel> newTaskListModel = TaskListByStatusModel().obs;
   @override
   void onInit() {
     super.onInit();
-    _getUpdatedTaskList();
+    _getTaskList();
   }
 
 
-  Future<void> _getUpdatedTaskList() async {
+  Future<void> _getTaskList() async {
     isLoading.value = true;
     final NetworkResponse response =await NetworkCaller.getRequest(url: Urls.taskListByStatusUrl(enumTaskStatus.Completed.name));
     if (response.isSuccess) {
       newTaskListModel.value = TaskListByStatusModel.fromJson(response.responseData!);
     } else {
-      Get.snackbar("Error", response.errorMessage);
+      _errorMessage= response.errorMessage;
     }
    isLoading.value = false;
   }
