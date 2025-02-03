@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:ashek_task_manager_getx/app/models/user_model.dart';
 import 'package:ashek_task_manager_getx/app/modules/sign_in_screen/controllers/auth_controller.dart';
 import 'package:ashek_task_manager_getx/app/services/network_caller.dart';
 import 'package:ashek_task_manager_getx/app/utils/urls.dart';
@@ -41,7 +42,7 @@ class UpdateProfileScreenController extends GetxController {
     };
 
     if (profileImage.value.isNotEmpty) {
-      requestBody['photo'] = profileImage.value;
+      requestBody['photo'] =base64Encode(profileImage.value) ;
     }
     if (passwordTEController.text.isNotEmpty) {
       requestBody['password'] = passwordTEController.text;
@@ -52,6 +53,12 @@ class UpdateProfileScreenController extends GetxController {
     isLoading.value = false;
     if (response.isSuccess) {
       passwordTEController.clear();
+      UserModel? userModel=AuthController.userModel;
+      if(userModel!=null)
+      {
+        userModel.photo=base64Encode(profileImage.value);
+        await AuthController.saveUserData(AuthController.accessToken!, userModel);
+      }
     } else {
       Get.snackbar("Error", response.errorMessage);
     }
@@ -72,7 +79,7 @@ class UpdateProfileScreenController extends GetxController {
         minHeight: 50,
         quality: 50,
       );
-      profileImageName.value = imageName.toString();
+      profileImageName.value = imageName.path.toString();
       profileImageFile.value = imageFile;
       profileImage.value = compressedImageData;
 
@@ -87,6 +94,7 @@ class UpdateProfileScreenController extends GetxController {
     lastNameTEController.dispose();
     mobileTEController.dispose();
     passwordTEController.dispose();
+    profileImageName.value ="";
     super.onClose();
   }
 }

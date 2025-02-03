@@ -14,7 +14,10 @@ class CompletedTaskListController extends GetxController {
     super.onInit();
     _getTaskList();
   }
-
+void refreshList()
+{
+  _getTaskList();
+}
 
   Future<void> _getTaskList() async {
     isLoading.value = true;

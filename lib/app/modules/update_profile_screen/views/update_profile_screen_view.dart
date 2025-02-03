@@ -2,6 +2,7 @@ import 'package:ashek_task_manager_getx/app/modules/update_profile_screen/contro
 import 'package:ashek_task_manager_getx/app/routes/app_pages.dart';
 import 'package:ashek_task_manager_getx/app/widgets/centered_circular_progress_indicator.dart';
 import 'package:ashek_task_manager_getx/app/widgets/screen_background.dart';
+import 'package:ashek_task_manager_getx/app/widgets/tm_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -20,9 +21,9 @@ class UpdateProfileScreenView extends GetView<UpdateProfileScreenController> {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      // appBar: const TMAppBar(
-      //   fromUpdateProfile: true,
-      // ),
+       appBar: const TMAppBar(
+        fromUpdateProfile: true,
+      ),
       body: ScreenBackground(
         child: SingleChildScrollView(
           child: Padding(

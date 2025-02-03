@@ -7,15 +7,9 @@ import 'package:get/get.dart';
 class ForgetPasswordVerifyOtpScreenController extends GetxController {
   final TextEditingController otpTEController = TextEditingController();
   final isLoading = false.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  String? _errorMessage;
+  String? get errorMessage => _errorMessage;
 
   @override
   void onClose() {
@@ -24,16 +18,16 @@ class ForgetPasswordVerifyOtpScreenController extends GetxController {
   }
 
   Future<bool> verifyOTP() async {
-    bool isSuccess=false;
-    isLoading.value = true;   
-    final NetworkResponse response =await NetworkCaller.getRequest(url: Urls.recoverVerifyOTPUrl(AuthController.userEmail!,otpTEController.text.trim()));
-    
-    if (response.isSuccess) {
-      Get.snackbar("Success", 'OTP verified');
-      isSuccess= true;
-    } else {
-      Get.snackbar("Error", response.errorMessage);
+    bool isSuccess = false;
+    isLoading.value = true;
+    final NetworkResponse response = await NetworkCaller.getRequest(
+        url: Urls.recoverVerifyOTPUrl(
+            AuthController.userEmail!, otpTEController.text.trim()));
 
+    if (response.isSuccess) {
+      isSuccess = true;
+    } else {
+      _errorMessage = response.errorMessage;
     }
     isLoading.value = false;
     return isSuccess;

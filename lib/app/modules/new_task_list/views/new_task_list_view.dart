@@ -24,7 +24,10 @@ class NewTaskListView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Obx(
-                  () => Visibility(visible: (controller.isLoading.value == false), replacement: const CenteredCircularProgressIndicator(), child: _buildTaskListView()),
+                  () => Visibility(
+                      visible: (controller.isLoading.value == false),
+                      replacement: const CenteredCircularProgressIndicator(),
+                      child: _buildTaskListView()),
                 ),
               )
             ],
@@ -36,8 +39,13 @@ class NewTaskListView extends StatelessWidget {
           // Navigator.pushNamed(context, AddNewTaskScreen.name);
           Get.toNamed(Routes.ADD_NEW_TASK_SCREEN);
         },
+        mini: true,
+        focusColor: Colors.green,
+        hoverColor: Colors.blue,
+        splashColor: Colors.red,
         child: const Icon(Icons.add),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 
@@ -64,9 +72,11 @@ class NewTaskListView extends StatelessWidget {
         child: Obx(
           () => ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: controller.taskCountByStatusModel.value.taskByStatusList.length,
+            itemCount:
+                controller.taskCountByStatusModel.value.taskByStatusList.length,
             itemBuilder: (context, index) {
-              final TaskCountModel model = controller.taskCountByStatusModel.value.taskByStatusList[index];
+              final TaskCountModel model = controller
+                  .taskCountByStatusModel.value.taskByStatusList[index];
               return TaskStatusSummaryCounterWidget(
                 title: model.sId ?? '',
                 count: model.sum.toString(),

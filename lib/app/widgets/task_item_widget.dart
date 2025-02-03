@@ -1,7 +1,11 @@
 import 'package:ashek_task_manager_getx/app/models/task_model.dart';
+import 'package:ashek_task_manager_getx/app/modules/canceled_task_list/controllers/canceled_task_list_controller.dart';
+import 'package:ashek_task_manager_getx/app/modules/completed_task_list/controllers/completed_task_list_controller.dart';
 import 'package:ashek_task_manager_getx/app/modules/new_task_list/controllers/delete_task_controller.dart';
 import 'package:ashek_task_manager_getx/app/modules/new_task_list/controllers/new_task_list_controller.dart';
 import 'package:ashek_task_manager_getx/app/modules/new_task_list/controllers/update_task_controller.dart';
+import 'package:ashek_task_manager_getx/app/modules/progress_task_list/controllers/progress_task_list_controller.dart';
+import 'package:ashek_task_manager_getx/app/routes/app_pages.dart';
 import 'package:ashek_task_manager_getx/app/utils/status_enum.dart';
 import 'package:ashek_task_manager_getx/app/widgets/change_task_status_dialog.dart';
 import 'package:ashek_task_manager_getx/app/widgets/delete_confirmation_dialog.dart';
@@ -21,9 +25,22 @@ class TaskItemWidget extends StatelessWidget {
   final List<TaskModel> taskModelList;
   // final DeleteTaskController deleteTaskController=Get.find<DeleteTaskController>();
   // final UpdateTaskController updateTaskController=Get.find<UpdateTaskController>();
-  final DeleteTaskController deleteTaskController = Get.put(DeleteTaskController());
-  final UpdateTaskController updateTaskController = Get.put(UpdateTaskController());
-  NewTaskListController newTaskListController = Get.put(NewTaskListController());
+  final DeleteTaskController deleteTaskController =
+      Get.put(DeleteTaskController());
+  final UpdateTaskController updateTaskController =
+      Get.put(UpdateTaskController());
+  // NewTaskListController newTaskListController = Get.put(NewTaskListController());
+  // ProgressTaskListController progressTaskListController = Get.put(ProgressTaskListController());
+  // CompletedTaskListController completedTaskListController = Get.put(CompletedTaskListController());
+
+  NewTaskListController newTaskListController =
+      Get.find<NewTaskListController>();
+  ProgressTaskListController progressTaskListController =
+      Get.find<ProgressTaskListController>();
+  CompletedTaskListController completedTaskListController =
+      Get.find<CompletedTaskListController>();
+  CanceledTaskListController canceledTaskListController =
+      Get.find<CanceledTaskListController>();
 
   @override
   Widget build(BuildContext context) {
@@ -41,10 +58,12 @@ class TaskItemWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
-                    color: _getStatusColor(taskModel.status ?? enumTaskStatus.NewTask.name),
+                    color: _getStatusColor(
+                        taskModel.status ?? enumTaskStatus.NewTask.name),
                   ),
                   child: Text(
                     taskModel.status ?? enumTaskStatus.NewTask.name,
@@ -57,7 +76,8 @@ class TaskItemWidget extends StatelessWidget {
                   children: [
                     IconButton(
                       onPressed: () async {
-                        bool isConfirmed = await ConfirmationDialog.showDeleteConfirmationDialog(context);
+                        bool isConfirmed = await ConfirmationDialog
+                            .showDeleteConfirmationDialog(context);
                         if (isConfirmed) {
                           _deleteTask(taskModel.sId!);
                           // taskModelList.remove(taskModel);
@@ -69,12 +89,11 @@ class TaskItemWidget extends StatelessWidget {
                     ),
                     IconButton(
                       onPressed: () async {
-                        enumTaskStatus taskStatus = await ChangeStatusDialog.showChangeStatusDialog(context);
-                        if (taskStatus.name != taskModel.status) {
+                        enumTaskStatus taskStatus =
+                            await ChangeStatusDialog.showChangeStatusDialog(
+                                context);
+                        if (taskStatus.name != enumTaskStatus.none.name) {
                           _updateTask(taskStatus.name, taskModel.sId!);
-                          taskModelList[index] = taskModel;
-                          // Navigator.pushReplacementNamed(
-                          //     context, MainBottomNavScreen.name);
                         }
                       },
                       icon: const Icon(Icons.edit),
@@ -103,24 +122,42 @@ class TaskItemWidget extends StatelessWidget {
 
   Future<void> _deleteTask(String sid) async {
     bool isSuccess = await deleteTaskController.deleteTask(sid);
-
     if (isSuccess) {
-      //refresh list
-      newTaskListController.taskList.removeAt(index);
-      newTaskListController.taskList.refresh();
       Get.snackbar("Success", "Task deleted successfully.");
+      refreshTaskList(taskModel.status!);
     } else {
       Get.snackbar("Error", deleteTaskController.errorMessage!);
     }
   }
 
   Future<void> _updateTask(String status, String sid) async {
-    bool isSuccess = await updateTaskController.updateTask(status, sid);
-
+    bool isSuccess = await updateTaskController.updateTask(status, sid);    
     if (isSuccess) {
       Get.snackbar("Success", "Task status updated successfully.");
+      refreshTaskList(taskModel.status!);
+      refreshTaskList(status);
     } else {
       Get.snackbar("Error", deleteTaskController.errorMessage!);
+    }
+  }
+
+  void refreshTaskList(String status) {
+    newTaskListController.refreshListCount();
+    if (enumTaskStatus.NewTask.name == status)
+    {
+      newTaskListController.refreshList();
+    }
+    else if (enumTaskStatus.Completed.name == status)
+    {
+      completedTaskListController.refreshList();
+    }
+    else if (enumTaskStatus.Progress.name == status)
+    {
+      progressTaskListController.refreshList();
+    }
+    else if (enumTaskStatus.Canceled.name == status)
+    {
+      canceledTaskListController.refreshList();
     }
   }
 }

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class ChangeStatusDialog {
 static Future<enumTaskStatus> showChangeStatusDialog(BuildContext context) async {
- enumTaskStatus taskStatus=enumTaskStatus.NewTask;
+ enumTaskStatus taskStatus=enumTaskStatus.none;
     await showDialog(
       context: context,
       builder: (context) {

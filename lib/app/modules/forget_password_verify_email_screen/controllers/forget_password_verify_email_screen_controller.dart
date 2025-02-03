@@ -8,6 +8,8 @@ class ForgetPasswordVerifyEmailScreenController extends GetxController {
   final TextEditingController emailTEController = TextEditingController();
 
   final isLoading = false.obs;
+  String? _errorMessage;
+   String? get errorMessage => _errorMessage;
   @override
   void onClose() {
     emailTEController.dispose();
@@ -18,11 +20,10 @@ class ForgetPasswordVerifyEmailScreenController extends GetxController {
     bool isSuccess=false;
     isLoading.value = true; 
     final NetworkResponse response =await NetworkCaller.getRequest(url: Urls.recoverVerifyEmailUrl(AuthController.userEmail!));    
-    if (response.isSuccess) {
-      Get.snackbar("Successful", 'OTP is sent to your email, Please check.');
+    if (response.isSuccess) {      
       isSuccess= true;
     } else {
-      Get.snackbar("Error", response.errorMessage);
+      _errorMessage= response.errorMessage;
     }
     isLoading.value = true; 
     return isSuccess;

@@ -10,7 +10,7 @@ import '../../../utils/urls.dart';
 class AddNewTaskScreenController extends GetxController {
 //refresh list
 
-  final NewTaskListController newTaskListController = Get.put(NewTaskListController());
+  final NewTaskListController newTaskListController = Get.find<NewTaskListController>();
 
   var isLoading = false.obs;
   String? _errorMessage;
@@ -32,6 +32,7 @@ class AddNewTaskScreenController extends GetxController {
       newTaskListController.taskList.add(newTask);
       newTaskListController.taskList.refresh();
       _clearTextFields();
+      isSuccess = true;
     } else {
       _errorMessage = response.errorMessage;
     }

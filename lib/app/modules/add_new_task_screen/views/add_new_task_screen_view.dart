@@ -1,3 +1,6 @@
+import 'package:ashek_task_manager_getx/app/modules/new_task_list/controllers/new_task_list_controller.dart';
+import 'package:ashek_task_manager_getx/app/routes/app_pages.dart';
+import 'package:ashek_task_manager_getx/app/widgets/tm_app_bar.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -11,12 +14,13 @@ class AddNewTaskScreenView extends GetView<AddNewTaskScreenController> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final AddNewTaskScreenController controller=Get.find<AddNewTaskScreenController>();
+  final NewTaskListController newTaskListController=Get.find<NewTaskListController>();
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
-      // appBar: const TMAppBar(),
+      appBar: const TMAppBar(),
       body: ScreenBackground(
         child: SingleChildScrollView(
           child: Padding(
@@ -85,6 +89,8 @@ class AddNewTaskScreenView extends GetView<AddNewTaskScreenController> {
     if(isSuccess)
       {
         Get.snackbar("Success", 'New task added!');
+        newTaskListController.refreshList();
+        Get.toNamed(Routes.HOME);
       }
     else
       {

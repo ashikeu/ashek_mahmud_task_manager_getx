@@ -19,6 +19,15 @@ class NewTaskListController extends GetxController {
     _getNewTaskList(); 
   }
 
+  void refreshList()
+  {
+    _getNewTaskList(); 
+  }
+  void refreshListCount()
+  {
+     _getTaskCountByStatus();
+  }
+
   Future<void> _getTaskCountByStatus() async {
     isLoading.value = true;
     final NetworkResponse response =

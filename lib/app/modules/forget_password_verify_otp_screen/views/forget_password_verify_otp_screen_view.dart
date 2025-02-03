@@ -50,9 +50,12 @@ class ForgetPasswordVerifyOtpScreenView
                         AuthController.userOTP=controller.otpTEController.text;
                          if(await controller.verifyOTP())
                         {                     
+                           Get.snackbar("Success", 'OTP verified');
                           Get.toNamed(Routes.RESET_PASSWORD_SCREEN)   ;
-                        // Navigator.pushNamed(
-                        //     TaskManagerApp.navigatorKey.currentContext!, ResetPasswordScreen.name);
+                        }
+                        else
+                        {
+                          Get.snackbar("Error", controller.errorMessage!);
                         }
                       },
                       child: const Icon(Icons.arrow_circle_right_outlined),
