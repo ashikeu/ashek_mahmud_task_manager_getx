@@ -24,10 +24,7 @@ class NewTaskListView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Obx(
-                  () => Visibility(
-                      visible: (controller.isLoading.value == false),
-                      replacement: const CenteredCircularProgressIndicator(),
-                      child: _buildTaskListView()),
+                  () => Visibility(visible: (controller.isLoading.value == false), replacement: const CenteredCircularProgressIndicator(), child: _buildTaskListView()),
                 ),
               )
             ],
@@ -45,18 +42,18 @@ class NewTaskListView extends StatelessWidget {
   }
 
   Widget _buildTaskListView() {
-    return ListView.builder(
-      shrinkWrap: true,
-      primary: false,
-      itemCount: controller.newTaskListModel.value.taskList.length,
-      itemBuilder: (context, index) {
-        return TaskItemWidget(
-          taskModel: controller.newTaskListModel.value.taskList[index],
-          taskModelList: controller.newTaskListModel.value.taskList,
-          index: index,
-        );
-      },
-    );
+    return Obx(() => ListView.builder(
+          shrinkWrap: true,
+          primary: false,
+          itemCount: controller.taskList.length,
+          itemBuilder: (context, index) {
+            return Obx(() => TaskItemWidget(
+                  taskModel: controller.taskList[index],
+                  taskModelList: controller.taskList,
+                  index: index,
+                ));
+          },
+        ));
   }
 
   Widget _buildTasksSummaryByStatus() {
@@ -67,11 +64,9 @@ class NewTaskListView extends StatelessWidget {
         child: Obx(
           () => ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount:
-                controller.taskCountByStatusModel.value.taskByStatusList.length,
+            itemCount: controller.taskCountByStatusModel.value.taskByStatusList.length,
             itemBuilder: (context, index) {
-              final TaskCountModel model = controller
-                  .taskCountByStatusModel.value.taskByStatusList[index];
+              final TaskCountModel model = controller.taskCountByStatusModel.value.taskByStatusList[index];
               return TaskStatusSummaryCounterWidget(
                 title: model.sId ?? '',
                 count: model.sum.toString(),
