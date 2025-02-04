@@ -13,7 +13,7 @@ class ForgetPasswordVerifyOtpScreenController extends GetxController {
 
   @override
   void onClose() {
-    otpTEController.dispose();
+    //otpTEController.dispose();
     super.onClose();
   }
 
@@ -25,7 +25,14 @@ class ForgetPasswordVerifyOtpScreenController extends GetxController {
             AuthController.userEmail!, otpTEController.text.trim()));
 
     if (response.isSuccess) {
+      if(response.responseData!['status']=='fail')
+      {
+          _errorMessage = response.responseData!['data'];
+      }
+      else
+      {
       isSuccess = true;
+      }
     } else {
       _errorMessage = response.errorMessage;
     }
