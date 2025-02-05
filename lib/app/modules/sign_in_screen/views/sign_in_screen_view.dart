@@ -97,7 +97,7 @@ class SignInScreenView extends GetView<SignInScreenController> {
     if (isSuccess) {
       Get.toNamed(Routes.HOME);
     } else {
-      Get.snackbar("Error",controller.errorMessage!);
+      Get.snackbar("Error",controller.errorMessage!,colorText: Colors.red);
     }
   }
 

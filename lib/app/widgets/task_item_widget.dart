@@ -123,21 +123,21 @@ class TaskItemWidget extends StatelessWidget {
   Future<void> _deleteTask(String sid) async {
     bool isSuccess = await deleteTaskController.deleteTask(sid);
     if (isSuccess) {
-      Get.snackbar("Success", "Task deleted successfully.");
+      Get.snackbar("Success", "Task deleted successfully.",backgroundColor: Colors.amberAccent);
       refreshTaskList(taskModel.status!);
     } else {
-      Get.snackbar("Error", deleteTaskController.errorMessage!);
+      Get.snackbar("Error", deleteTaskController.errorMessage!,colorText: Colors.red);
     }
   }
 
   Future<void> _updateTask(String status, String sid) async {
     bool isSuccess = await updateTaskController.updateTask(status, sid);    
     if (isSuccess) {
-      Get.snackbar("Success", "Task status updated successfully.");
+      Get.snackbar("Success", "Task status updated successfully." ,backgroundColor: Colors.amberAccent);
       refreshTaskList(taskModel.status!);
       refreshTaskList(status);
     } else {
-      Get.snackbar("Error", deleteTaskController.errorMessage!);
+      Get.snackbar("Error", deleteTaskController.errorMessage!,colorText: Colors.red);
     }
   }
 

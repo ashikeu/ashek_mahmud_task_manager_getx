@@ -50,12 +50,12 @@ class ForgetPasswordVerifyOtpScreenView
                         AuthController.userOTP=controller.otpTEController.text;
                          if(await controller.verifyOTP())
                         {                     
-                           Get.snackbar("Success", 'OTP verified');
+                           Get.snackbar("Success", 'OTP verified',backgroundColor: Colors.amberAccent);
                           Get.toNamed(Routes.RESET_PASSWORD_SCREEN)   ;
                         }
                         else
                         {
-                          Get.snackbar("Error", controller.errorMessage!);
+                          Get.snackbar("Error", controller.errorMessage!,colorText: Colors.red);
                         }
                       },
                       child: const Icon(Icons.arrow_circle_right_outlined),

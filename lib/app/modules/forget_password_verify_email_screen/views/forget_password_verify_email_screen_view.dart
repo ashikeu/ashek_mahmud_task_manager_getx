@@ -55,12 +55,12 @@ class ForgetPasswordVerifyEmailScreenView
                          AuthController.userEmail=controller.emailTEController.text;
                         if(await controller.verifyEmail())
                         {
-                          Get.snackbar("Successful", 'OTP is sent to your email, Please check.');
+                          Get.snackbar("Successful", 'OTP is sent to your email, Please check.', backgroundColor: Colors.amberAccent);
                          Get.toNamed(Routes.FORGET_PASSWORD_VERIFY_OTP_SCREEN);                        
                         }
                         else
                         {
-                          Get.snackbar("Error", controller.errorMessage!);
+                          Get.snackbar("Error", controller.errorMessage!,colorText: Colors.red);
                         }
                       },
                       child: const Icon(Icons.arrow_circle_right_outlined),

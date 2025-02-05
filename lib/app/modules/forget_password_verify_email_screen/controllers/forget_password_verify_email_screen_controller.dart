@@ -19,12 +19,20 @@ class ForgetPasswordVerifyEmailScreenController extends GetxController {
   Future<bool> verifyEmail() async {
     bool isSuccess=false;
     isLoading.value = true; 
-    final NetworkResponse response =await NetworkCaller.getRequest(url: Urls.recoverVerifyEmailUrl(AuthController.userEmail!));    
-    if (response.isSuccess) {      
-      isSuccess= true;
+    final NetworkResponse response =await NetworkCaller.getRequest(url: Urls.recoverVerifyEmailUrl(AuthController.userEmail!));
+
+     if (response.isSuccess) {
+      if(response.responseData!['status']=='fail')
+      {
+          _errorMessage = response.responseData!['data'];
+      }
+      else
+      {
+      isSuccess = true;
+      }
     } else {
-      _errorMessage= response.errorMessage;
-    }
+      _errorMessage = response.errorMessage;
+    }        
     isLoading.value = true; 
     return isSuccess;
   }
