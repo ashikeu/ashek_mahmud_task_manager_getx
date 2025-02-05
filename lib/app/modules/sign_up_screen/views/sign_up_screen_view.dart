@@ -101,7 +101,7 @@ class SignUpScreenView extends GetView<SignUpScreenController> {
                     replacement: const CenteredCircularProgressIndicator(),
                     child: ElevatedButton(
                       onPressed: _onTapSignUpButton,
-                      child: const Icon(Icons.arrow_circle_right_outlined),
+                      child: const Icon(Icons.arrow_circle_right_outlined,color:Colors.white),
                     ),
                   ),
                   const SizedBox(height: 48),

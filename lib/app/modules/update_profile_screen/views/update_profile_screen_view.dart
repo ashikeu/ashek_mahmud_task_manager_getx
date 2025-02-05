@@ -91,7 +91,7 @@ class UpdateProfileScreenView extends GetView<UpdateProfileScreenController> {
                     replacement: const CenteredCircularProgressIndicator(),
                     child: ElevatedButton(
                       onPressed: _onTapUpdateButton,
-                      child: const Icon(Icons.arrow_circle_right_outlined),
+                      child: const Icon(Icons.arrow_circle_right_outlined,color:Colors.white),
                     ),
                   ),)
                 ],

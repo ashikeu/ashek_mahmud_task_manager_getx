@@ -70,7 +70,7 @@ class AddNewTaskScreenView extends GetView<AddNewTaskScreenController> {
                           _createNewTask();
                         }
                       },
-                      child: const Icon(Icons.arrow_circle_right_outlined),
+                      child: const Icon(Icons.arrow_circle_right_outlined,color:Colors.white),
                     ),
                   ),
                   ),

@@ -85,7 +85,8 @@ class TaskItemWidget extends StatelessWidget {
                           //     context, MainBottomNavScreen.name);
                         }
                       },
-                      icon: const Icon(Icons.delete),
+                       icon: const Icon(Icons.delete,color: Colors.red,),
+
                     ),
                     IconButton(
                       onPressed: () async {
@@ -96,7 +97,8 @@ class TaskItemWidget extends StatelessWidget {
                           _updateTask(taskStatus.name, taskModel.sId!);
                         }
                       },
-                      icon: const Icon(Icons.edit),
+                      icon: const Icon(Icons.edit,color: Colors.blue,),
+
                     ),
                   ],
                 )
@@ -123,40 +125,37 @@ class TaskItemWidget extends StatelessWidget {
   Future<void> _deleteTask(String sid) async {
     bool isSuccess = await deleteTaskController.deleteTask(sid);
     if (isSuccess) {
-      Get.snackbar("Success", "Task deleted successfully.",backgroundColor: Colors.amberAccent);
+      Get.snackbar("Success", "Task deleted successfully.",
+          backgroundColor: Colors.amberAccent);
       refreshTaskList(taskModel.status!);
     } else {
-      Get.snackbar("Error", deleteTaskController.errorMessage!,colorText: Colors.red);
+      Get.snackbar("Error", deleteTaskController.errorMessage!,
+          colorText: Colors.red);
     }
   }
 
   Future<void> _updateTask(String status, String sid) async {
-    bool isSuccess = await updateTaskController.updateTask(status, sid);    
+    bool isSuccess = await updateTaskController.updateTask(status, sid);
     if (isSuccess) {
-      Get.snackbar("Success", "Task status updated successfully." ,backgroundColor: Colors.amberAccent);
+      Get.snackbar("Success", "Task status updated successfully.",
+          backgroundColor: Colors.amberAccent);
       refreshTaskList(taskModel.status!);
       refreshTaskList(status);
     } else {
-      Get.snackbar("Error", deleteTaskController.errorMessage!,colorText: Colors.red);
+      Get.snackbar("Error", deleteTaskController.errorMessage!,
+          colorText: Colors.red);
     }
   }
 
   void refreshTaskList(String status) {
     newTaskListController.refreshListCount();
-    if (enumTaskStatus.NewTask.name == status)
-    {
+    if (enumTaskStatus.NewTask.name == status) {
       newTaskListController.refreshList();
-    }
-    else if (enumTaskStatus.Completed.name == status)
-    {
+    } else if (enumTaskStatus.Completed.name == status) {
       completedTaskListController.refreshList();
-    }
-    else if (enumTaskStatus.Progress.name == status)
-    {
+    } else if (enumTaskStatus.Progress.name == status) {
       progressTaskListController.refreshList();
-    }
-    else if (enumTaskStatus.Canceled.name == status)
-    {
+    } else if (enumTaskStatus.Canceled.name == status) {
       canceledTaskListController.refreshList();
     }
   }

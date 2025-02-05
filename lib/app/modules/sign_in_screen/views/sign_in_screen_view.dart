@@ -60,7 +60,7 @@ class SignInScreenView extends GetView<SignInScreenController> {
                     replacement: const CenteredCircularProgressIndicator(),
                     child: ElevatedButton(
                       onPressed: _onTapSignInButton,                     
-                      child: const Icon(Icons.arrow_circle_right_outlined),
+                      child: const Icon(Icons.arrow_circle_right_outlined,color:Colors.white),
                     ),
                   ),
                   const SizedBox(height: 48),
