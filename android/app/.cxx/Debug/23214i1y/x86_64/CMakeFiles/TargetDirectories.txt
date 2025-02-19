@@ -1,0 +1,2 @@
+D:/Git/ashek_mahmud_task_manager_getx/android/app/.cxx/Debug/23214i1y/x86_64/CMakeFiles/edit_cache.dir
+D:/Git/ashek_mahmud_task_manager_getx/android/app/.cxx/Debug/23214i1y/x86_64/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,2 @@
+D:/Git/ashek_mahmud_task_manager_getx/android/app/.cxx/Debug/23214i1y/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/Git/ashek_mahmud_task_manager_getx/android/app/.cxx/Debug/23214i1y/armeabi-v7a/CMakeFiles/rebuild_cache.dir
